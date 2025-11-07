@@ -59,7 +59,5 @@ thresholds = {
     "Cholesterol":          ("<", 75, 2),
     "Sodium":               ("<", 300, 3),
 
-
-    "Water":                (">", 50, 1),
     "Nutrition_Density":    (">", 150, 2)
 }

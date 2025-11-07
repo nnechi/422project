@@ -39,7 +39,6 @@ class Labeler:
             fiber = getattr(row, "Dietary_Fiber", 0)
             cholesterol = getattr(row, "Cholesterol", 0)
             sodium = getattr(row, "Sodium", 0)
-            water = getattr(row, "Water", 0)
             density = getattr(row, "Nutrition_Density", 0)
 
             vals = [getattr(row,f'food'), calories,fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium,water,density]
