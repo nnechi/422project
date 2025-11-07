@@ -35,7 +35,6 @@ feature_names = [
 "Potassium",
 "Selenium",
 "Zinc",
-"Nutrition Density"
 ]
 
 thresholds = {
@@ -58,6 +57,4 @@ thresholds = {
 
     "Cholesterol":          ("<", 75, 2),
     "Sodium":               ("<", 300, 3),
-
-    "Nutrition_Density":    (">", 150, 2)
 }

@@ -40,9 +40,9 @@ class Labeler:
             cholesterol = getattr(row, "Cholesterol", 0)
             sodium = getattr(row, "Sodium", 0)
 
-            density = getattr(row, "Nutrition_Density", 0)
 
-            vals = [getattr(row,f'food'), calories,fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium,water,density]
+
+            vals = [getattr(row,f'food'), calories,fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium]
 
             
          
@@ -61,7 +61,7 @@ class Labeler:
     def test(self, values) ->  bool  :
         i =1
         score = 0
-        test_order = ["Caloric_Value", "Fat", "Saturated_Fats", "Monounsaturated_Fats", "Polyunsaturated_Fats", "Carbohydrates", "Sugars", "Protein", "Dietary_Fiber", "Cholesterol", "Sodium", "Water", "Nutrition_Density"]
+        test_order = ["Caloric_Value", "Fat", "Saturated_Fats", "Monounsaturated_Fats", "Polyunsaturated_Fats", "Carbohydrates", "Sugars", "Protein", "Dietary_Fiber", "Cholesterol", "Sodium"]
         for test in test_order: 
             v = values[i]
             thresh = self.criteria[test]
