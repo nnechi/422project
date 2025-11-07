@@ -73,24 +73,18 @@ class Labeler:
             if op == '<': 
                 if (v < val): 
                     f.write('+1\n')
-                    score += 1
-                else: 
-                    f.write('-1\n')
-                    score -= 1
+                    score += thresh[2]
             elif op == '>':
                 if (v > val): 
                     f.write('+1\n')
-                    score += 1
-                else: 
-                    f.write('-1\n')
-                    score -= 1 
+                    score += thresh[2]
 
             i+=1
 
         
         f.write(f"Score for: {values[0]}: {score}\n")
         print()
-        return score >= int(13/2)
+        return score >= 17
             
             
  

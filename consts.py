@@ -38,11 +38,28 @@ feature_names = [
 "Nutrition Density"
 ]
 
-# thresholds = {
-#     'Fat': 78/3,
-#     'Saturated_Fat':
-#     'Sugar': 
-#     'Sodium': 140,
-#     'Protein': 5,
-#     'Fiber': 3
-# }
+thresholds = {
+
+    "Caloric_Value":        ("<", 200, 2),
+    "Fat":                  ("<", 10, 3),
+    "Saturated_Fats":       ("<", 3, 4),
+
+
+    "Monounsaturated_Fats": (">", 1.5, 1),
+    "Polyunsaturated_Fats": (">", 0.8, 1),
+
+
+    "Carbohydrates":        ("<", 30, 2),
+    "Sugars":               ("<", 10, 4),
+
+    "Protein":              (">", 6, 3),
+    "Dietary_Fiber":        (">", 4, 3),
+
+
+    "Cholesterol":          ("<", 75, 2),
+    "Sodium":               ("<", 300, 3),
+
+
+    "Water":                (">", 50, 1),
+    "Nutrition_Density":    (">", 150, 2)
+}
