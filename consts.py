@@ -1,16 +1,16 @@
 #CONST PROC DO NOT EDIT 
 thresholds = {
     # Nutrition value               # (operation, threshold value, points, penalty)
-    "Fat_Density":                  ("<", 0.03, 2, 5),
+    "Fat_Density":                  ("<", 0.03, 2, 7),
 
     "Saturated_Fats_Density":       ("<", 0.01, 4, 2),
 
     "Monounsaturated_Fats_Density": (">", 0.01, 1, 1),
     "Polyunsaturated_Fats_Density": (">", 0.01, 1, 1),
 
-    "Carbohydrates_Density":        ("<", 0.20, 2, 1),
+    "Carbohydrates_Density":        ("<", 0.10, 2, 4),
 
-    "Sugars_Density":               ("<", 0.05, 5, 4),
+    "Sugars_Density":               ("<", 0.05, 4, 4),
 
     "Protein_Density":              (">", 0.06, 3, 2),
 
