@@ -39,10 +39,11 @@ class Labeler:
             fiber = getattr(row, "Dietary_Fiber_Density", 0)
             cholesterol = getattr(row, "Cholesterol_Density", 0)
             sodium = getattr(row, "Sodium_Density", 0)
+            total_vitamin = getattr(row, "Total_Vitamin_Density", 0)
 
 
 
-            vals = [getattr(row,f'food'), fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium]
+            vals = [getattr(row,f'food'), fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium, total_vitamin]
 
             
             res, score = self.test(vals)
@@ -74,7 +75,8 @@ class Labeler:
             "Protein_Density",
             "Dietary_Fiber_Density",
             "Cholesterol_Density",
-            "Sodium_Density"
+            "Sodium_Density",
+            "Total_Vitamin_Density"
         ]
         for test in test_order: 
             v = values[i]

@@ -1,7 +1,7 @@
 #CONST PROC DO NOT EDIT 
 thresholds = {
     # Nutrition value               # (operation, threshold value, points, penalty)
-    "Fat_Density":                  ("<", 0.03, 2, 7),
+    "Fat_Density":                  ("<", 0.02, 2, 7),
 
     "Saturated_Fats_Density":       ("<", 0.01, 4, 2),
 
@@ -18,5 +18,7 @@ thresholds = {
 
     "Cholesterol_Density":          ("<", 0.25, 2, 3),
 
-    "Sodium_Density":               ("<", 0.004, 3, 3)
+    "Sodium_Density":               ("<", 0.002, 3, 3),
+
+    "Total_Vitamin_Density":        (">", 0.30, 4, 6),
 }
