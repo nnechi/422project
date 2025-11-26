@@ -39,10 +39,11 @@ class Labeler:
             fiber = getattr(row, "Dietary_Fiber_Density", 0)
             cholesterol = getattr(row, "Cholesterol_Density", 0)
             sodium = getattr(row, "Sodium_Density", 0)
+            total_vitamin = getattr(row, "Total_Vitamin_Density", 0)
 
 
 
-            vals = [getattr(row,f'food'), fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium]
+            vals = [getattr(row,f'food'), fat,sat_fat, mon_fat,poly_fat,carbs,sugars,protein,fiber,cholesterol,sodium, total_vitamin]
 
             
             res, score = self.test(vals)
@@ -74,7 +75,8 @@ class Labeler:
             "Protein_Density",
             "Dietary_Fiber_Density",
             "Cholesterol_Density",
-            "Sodium_Density"
+            "Sodium_Density",
+            "Total_Vitamin_Density"
         ]
         for test in test_order: 
             v = values[i]
@@ -88,18 +90,23 @@ class Labeler:
                 if (v < val): 
                     f.write(f'+{thresh[2]}\n')
                     score += thresh[2]
+                else:
+                    f.write(f'-{thresh[3]}\n')
+                    score -= thresh[3]
             elif op == '>':
                 if (v > val): 
                     f.write(f'+{thresh[2]}\n')
                     score += thresh[2]
+                else:
+                    f.write(f'-{thresh[3]}\n')
+                    score -= thresh[3]
 
             i+=1
 
         
         f.write(f"Score for: {values[0]}: {score}\n")
         print()
-        cutoff = 15
-        res = score >= 15#??? here need to set cutoff
+        res = score >= 3#??? here need to set cutoff
         return res,score
             
             
@@ -136,11 +143,14 @@ def main():
 
 
     print("Labeler has logged status in logger.txt.")
-    df1.to_csv("df1.csv", index=False)
-    df2.to_csv("df2.csv", index = False)
-    df3.to_csv("df3.csv", index = False)
-    df4.to_csv("df4.csv", index = False)
-    df5.to_csv("df5.csv", index = False)
+
+    os.makedirs("Labeled_Files", exist_ok=True)
+
+    df1.to_csv("Labeled_Files/df1.csv", index=False)
+    df2.to_csv("Labeled_Files/df2.csv", index=False)
+    df3.to_csv("Labeled_Files/df3.csv", index=False)
+    df4.to_csv("Labeled_Files/df4.csv", index=False)
+    df5.to_csv("Labeled_Files/df5.csv", index=False)
 
 
 
