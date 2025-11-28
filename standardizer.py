@@ -25,6 +25,12 @@ class Standardizer():
         result = result.fillna(0)
         result.columns = result.columns.str.replace(" ", "_")
 
+        # Making total vitamin density column
+        result["Total_Vitamin_Density"] = result[["Vitamin_A_Density", "Vitamin_B1_Density", "Vitamin_B11_Density",
+                                                  "Vitamin_B12_Density", "Vitamin_B2_Density", "Vitamin_B3_Density",
+                                                  "Vitamin_B5_Density", "Vitamin_B6_Density", "Vitamin_C_Density",
+                                                  "Vitamin_D_Density", "Vitamin_E_Density", "Vitamin_K_Density"]].sum(axis=1)
+
         return result
 
 

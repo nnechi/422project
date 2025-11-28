@@ -2,5 +2,13 @@ Files
 test.py
 .idea/workspace.xml
 __pycache__/consts.cpython-313.pyc
-/Standardized Files
+/Standardized_Files
+/Labeled_Files
 logger.txt
+df1.csv
+df2.csv
+df3.csv
+df4.csv
+df5.csv
+__pycache__/standardizer.cpython-313.pyc
+.DS_Store
