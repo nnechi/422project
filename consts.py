@@ -22,3 +22,18 @@ thresholds = {
 
     "Total_Vitamin_Density":        (">", 0.30, 4, 6),
 }
+
+
+FEATURE_NAMES = [
+    "Fat_Density",
+    "Saturated_Fats_Density",
+    "Monounsaturated_Fats_Density",
+    "Polyunsaturated_Fats_Density",
+    "Carbohydrates_Density",
+    "Sugars_Density",
+    "Protein_Density",
+    "Dietary_Fiber_Density",
+    "Cholesterol_Density",
+    "Sodium_Density",
+    "Total_Vitamin_Density",
+]

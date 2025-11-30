@@ -2,37 +2,28 @@ import sys
 import os 
 import numpy as np 
 import pandas as pd 
-import tensorflow as tf 
-from tensorflow.keras import layers, models, optimizers
+from sklearn.neural_network import MLPClassifier 
+from sklearn.metrics import accuracy_score
+
+#WRAPPER CLASS FOR NN 
 
 class NN: 
-    def __init__(self, features, target): 
-        pass
+    def __init__(self): 
+        self.model = MLPClassifier(hidden_layer_sizes=(10,10,10,10), activation = 'relu', solver='adam', max_iter=2000,random_state=42)
 
-    def train(self,features,target): 
-        
-        model = keras.Sequential(
-            [ 
-                layers.Dense(5, activation = 'relu', name = 'layer1'),
-                layers.Dense(6, activation = 'relu', name = 'layer2'),
-                layers.Dense(3, activation = 'relu', name = 'layer3'),
-                layers.Dense(1, activation='sigmoid', name = 'output')
-            ]
-        )
-        
-
-        model.compile(
-            optimizer = 'sgd', 
-            loss =- 'binarycrossentropy',
-            metrics = ['accuracy']
-        )
-
-        model.fit(self.features, self.target, epochs = 50)
-
-
-        return model
+    def train(self,features,target_train): 
+        self.model.fit(features, target_train)
+        return self.model 
     
 
-    def predict(self, xtest): 
+    def predict(self, xtest):
+
+        predictions = self.model.predict(xtest)
+        return predictions
+    
+    def accuracy(self, ytest, predictions): 
+        return accuracy_score(ytest, predictions)
+    
+
 
 
