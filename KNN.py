@@ -74,6 +74,9 @@ class KNN:
         plt.plot([0, 1], [0, 1], linestyle='--')
         plt.title("k-NN")
         plt.show()
+
+    def blank_cpy(self): 
+        return KNN(self.k)
     
 
 

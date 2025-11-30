@@ -71,4 +71,7 @@ class RF:
         plt.plot([0, 1], [0, 1], linestyle='--')
         plt.title("Random Forest")
         plt.show()
+
+    def blank_cpy(self): 
+        return RF()
     

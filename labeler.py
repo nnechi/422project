@@ -74,6 +74,5 @@ class Labeler:
 
             i+=1
 
-        print()
         res = score >= 3 
         return res,score

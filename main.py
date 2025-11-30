@@ -1,13 +1,97 @@
 # main.py
 import pandas as pd
+import numpy as np 
 from consts import thresholds,FEATURE_NAMES
 from standardizer import Standardizer
 from labeler import Labeler
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+from sklearn.utils import resample 
 from NN import NN
 from RF import RF
 from KNN import KNN
+
+
+def KFoldCV(name_of_model, m, features, target, k):
+    """K-Fold Cross Validation for each model. """
+    
+    print(f"====Starting Cross Validation for {name_of_model}====")
+    kfold = KFold(n_splits=k, shuffle=True, random_state=42)
+    scores = []
+    for train, test in kfold.split(features):
+        metrics = []  
+        xtrain, xtest = features.iloc[train], features.iloc[test]
+        ytrain, ytest = target.iloc[train], target.iloc[test]
+        model = m.blank_cpy()
+        model.train(xtrain, ytrain)
+        yhat = model.predict(xtest)
+        accuracy_NN, f1_NN, precision_NN, recall_NN = model.performance_metrics(ytest, yhat)
+        metrics.append(f"{accuracy_NN:.8f}")
+        metrics.append(f"{f1_NN:.8f}")
+        metrics.append(f"{precision_NN:.8f}")
+        metrics.append(f"{recall_NN:.8f}")
+        scores.append(metrics)
+        
+
+        
+    KFoldRes(name_of_model, scores)
+
+def KFoldRes(name_of_model, KFScores): 
+    i = 1
+    print("Fold #:           Accuracy       F1            Precision       Recall")
+    for score in KFScores: 
+        print(f"Fold{i}: Metrics = {score}")
+        i+=1 
+    print("========================================\n")
+
+
+
+def bootstrapEval(name_of_model, m, features, target, iterations):
+    """Bootstrapping procedure for each model."""
+
+    print(f"Starting Bootstrap Evaluations for {name_of_model}")
+    BSscores = [] 
+
+    for iteration in range(iterations):
+        #grab bootstrap samples 
+        BSFeatures, BSTargets = resample(features, target, replace = True)
+
+        OOB = ~features.index.isin(BSFeatures.index)
+        OOBFeatures = features[OOB]
+        OOBTargets = target[OOB]
+         
+        if len(OOB) == 0:
+            continue 
+        model = m.blank_cpy() 
+        model.train(BSFeatures, BSTargets)
+
+        yhat = model.predict(OOBFeatures)
+
+        BSscores.append(accuracy_score(OOBTargets, yhat))
+
+    bootstrapRes(name_of_model, BSscores)
+
+def bootstrapRes(name_of_model, BSscores):
+    scores = np.array(BSscores)
+
+    mean = scores.mean()
+    std = scores.std()
+    ci_lower = np.percentile(scores, 2.5)
+    ci_upper = np.percentile(scores, 97.5)
+    median = np.median(scores)
+    iqr = np.percentile(scores, 75) - np.percentile(scores, 25)
+
+    print(f"\n====Bootstrap Evaluation {name_of_model}====")
+    print(f"Mean Accuracy:        {mean:.8f}")
+    print(f"Std Deviation:        {std:.8f}")
+    print(f"95% CI:               [{ci_lower:.8f}, {ci_upper:.8f}]")
+    print(f"Median:               {median:.8f}")
+    print(f"IQR:                  {iqr:.8f}")
+    print("========================================\n")
+    
+
+
 
 def main():
     """Driver code to create, train, and evaluate the 3 models."""
@@ -96,6 +180,24 @@ def main():
     print(f"Recall: {recall_RF}")
     Model3.confusion_matrix(ytest, predictionsRF)
     Model3.roc_curve(xtest, ytest)
+
+
+    #Use KFold Method Above. 
+    print("Cross Validation: ")
+
+    KFoldCV("Neural Network", Model1, features, target, 10)
+    KFoldCV("K-Nearest Neighbors", Model2, features, target, 10)
+    KFoldCV("Random Forest", Model3, features, target, 10)  
+
+    #Bootstrap Eval     
+
+
+    bootstrapEval("Neural Network", Model1, features, target, 200)    
+    bootstrapEval("K-Nearest Neighbors", Model2, features, target, 200)
+    bootstrapEval("Random Forest", Model3, features, target, 200)
+
+
+
 
 
 main()

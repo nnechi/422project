@@ -74,3 +74,5 @@ class NN:
         plt.title("Neural Network")
         plt.show()
 
+    def blank_cpy(self): 
+        return NN()
