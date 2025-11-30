@@ -2,8 +2,6 @@ import pandas as pd
 
 #Labels data based off given instructions *criteria
 
-f = open('logger.txt','+w') #debug log. 
-
 
 class Labeler: 
     def __init__(self, thresholds : dict): 
@@ -40,11 +38,9 @@ class Labeler:
             
             res, score = self.test(vals)
             if (res):
-                f.write(f"{getattr(row,'food')} is healthy.\n\n")
                 labels.append("Healthy")
                 
             else:
-                f.write(f"{getattr(row,'food')} is unhealthy.\n\n")
                 labels.append("Unhealthy")
             scores.append(score)
         
@@ -76,26 +72,20 @@ class Labeler:
             val = thresh[1]
 
 
-            f.write(f"Testing: {test} V:{v}, Val:{val} for {values[0]}\n")
             if op == '<': 
-                if (v < val): 
-                    f.write(f'+{thresh[2]}\n')
+                if (v < val):
                     score += thresh[2]
                 else:
-                    f.write(f'-{thresh[3]}\n')
                     score -= thresh[3]
             elif op == '>':
-                if (v > val): 
-                    f.write(f'+{thresh[2]}\n')
+                if (v > val):
                     score += thresh[2]
                 else:
-                    f.write(f'-{thresh[3]}\n')
                     score -= thresh[3]
 
             i+=1
 
-        
-        f.write(f"Score for: {values[0]}: {score}\n")
+
         print()
         res = score >= 3 
         return res,score
