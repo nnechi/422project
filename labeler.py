@@ -1,6 +1,6 @@
 import pandas as pd
 
-#Labels data based off given instructions 
+#Labels data based off given instructions *criteria
 
 f = open('logger.txt','+w') #debug log. 
 
@@ -12,9 +12,6 @@ class Labeler:
 
 #Take in a dataframe and label it accordingly with unhealthy/healthy according to given criteria. 
     def label(self, frame: pd.DataFrame) -> pd.DataFrame:
-
-
-        f.write(f"\nStarting new frame log.\n")
 
         labels = []
         scores = []
@@ -50,11 +47,10 @@ class Labeler:
                 f.write(f"{getattr(row,'food')} is unhealthy.\n\n")
                 labels.append("Unhealthy")
             scores.append(score)
-        # Add as new column
+        
+
         frame['Health_Label'] = labels
-        print(f"Added Health_Label column ({len(labels)} entries)")
         frame['Health_Score'] = scores
-        print(f"Added Health_Score column ({len(scores)}) entries")
         return frame
 
     def test(self, values) ->  {bool,int}  :
@@ -101,5 +97,5 @@ class Labeler:
         
         f.write(f"Score for: {values[0]}: {score}\n")
         print()
-        res = score >= 3#??? here need to set cutoff
+        res = score >= 3 
         return res,score
