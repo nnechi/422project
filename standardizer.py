@@ -1,12 +1,10 @@
 # standardizer.py
-import pandas as pd
-import numpy as np
 
 vitaminColumns = [
             "Vitamin A", "Vitamin B1", "Vitamin B11", "Vitamin B12",
             "Vitamin B2", "Vitamin B3", "Vitamin B5", "Vitamin B6",
             "Vitamin C", "Vitamin D", "Vitamin E", "Vitamin K"
-        ]
+            ]
 
 densities = {
             "Fat": "Fat_Density",
@@ -21,12 +19,9 @@ densities = {
             "Sodium": "Sodium_Density",
             }
 
-
-
 class Standardizer:
     def __init__(self):
        pass
-
         
     def standardize(self, df):
         df = df.copy()
